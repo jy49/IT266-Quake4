@@ -265,6 +265,16 @@ public:
 //	idList<rvDatabaseEntry>	database;
 	
 	int						secretAreasDiscovered;
+
+	bool					MachinegunPurchased;
+	bool					ShotgunPurchased;
+	bool					GrenadelauncherPurchased;
+	bool					HyperblasterPurchased;
+	bool					LightninggunPurchased;
+	bool					NailgunPurchased;
+	bool					RailgunPurchased;
+	bool					RocketlauncherPurchased;
+	bool					DMGPurchased;
 };
 
 class idPlayer : public idActor {

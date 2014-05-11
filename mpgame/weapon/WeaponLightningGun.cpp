@@ -318,7 +318,12 @@ void rvWeaponLightningGun::Think ( void ) {
 		dir.Normalize ( );
 		
 		nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-		Attack ( currentPath.target, dir, power );
+
+		// TODO: may need adjustment due to way lightning gun works.
+		if(owner->inventory.LightninggunPurchased || (gameLocal.random.RandomInt(2) == 1))
+		{		
+			Attack ( currentPath.target, dir, power );
+		}
 		for ( i = 0; i < chainLightning.Num(); i ++, power *= 0.75f ) {
 			Attack ( chainLightning[i].target, chainLightning[i].normal, power );
 		}

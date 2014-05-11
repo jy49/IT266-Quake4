@@ -1347,6 +1347,16 @@ idPlayer::idPlayer() {
 	prevOnGround = true;
 	clientIdealWeaponPredictFrame = -1;
 	serverReceiveEvent = false;
+
+	inventory.MachinegunPurchased		= false;
+	inventory.ShotgunPurchased			= false;
+	inventory.GrenadelauncherPurchased	= false;
+	inventory.HyperblasterPurchased		= false;
+	inventory.LightninggunPurchased		= false;
+	inventory.NailgunPurchased			= false;
+	inventory.RailgunPurchased			= false;
+	inventory.RocketlauncherPurchased	= false;
+	inventory.DMGPurchased				= false;
 }
 
 /*
@@ -2975,6 +2985,16 @@ void idPlayer::SpawnToPoint( const idVec3 &spawn_origin, const idAngles &spawn_a
 		UpdateTeamPowerups();
 	}
 // RITUAL END
+
+	// Give all weapons on spawn
+	GiveItem("weapon_shotgun");
+	GiveItem("weapon_grenadelauncher");
+	GiveItem("weapon_hyperblaster");
+	GiveItem("weapon_lightninggun");
+	GiveItem("weapon_nailgun");
+	GiveItem("weapon_railgun");
+	GiveItem("weapon_rocketlauncher");
+	GiveItem("weapon_dmg");
 
 	BecomeActive( TH_THINK );
 

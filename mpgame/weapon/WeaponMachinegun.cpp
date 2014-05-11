@@ -232,13 +232,14 @@ stateResult_t rvWeaponMachinegun::State_Fire ( const stateParms_t& parms ) {
 				fireHeld = true;
 			} else {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				if(gameLocal.random.RandomInt(2))
+				if(owner->inventory.MachinegunPurchased || (gameLocal.random.RandomInt(2) == 1))
 				{
 					Attack ( false, 1, spread, 0, 1.0f );
 				}
 				else
 				{
-					gameLocal.Printf("click");
+					// Do nothing
+					//gameLocal.Printf("click");
 				}
 			}
 			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
