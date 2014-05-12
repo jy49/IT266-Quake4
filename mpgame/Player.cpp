@@ -8272,8 +8272,8 @@ itemBuyStatus_t idPlayer::ItemBuyStatus( const char* itemName )
 			return IBS_NOT_ALLOWED;
 	}
 
-	if ( CanSelectWeapon(itemName) != -1 )
-		return IBS_ALREADY_HAVE;
+//	if ( CanSelectWeapon(itemName) != -1 )
+//		return IBS_ALREADY_HAVE;
 
 	int cost = GetItemCost(itemName);
 	if ( cost > (int)buyMenuCash )
@@ -8380,7 +8380,7 @@ bool idPlayer::AttemptToBuyItem( const char* itemName )
 	/// Check if the player is allowed to buy this item
 	if( !CanBuyItem( itemName ) )
 	{
-		return false;
+//		return false;
 	}
 
 	const char* playerName = GetUserInfo()->GetString( "ui_name" );
@@ -8398,7 +8398,45 @@ bool idPlayer::AttemptToBuyItem( const char* itemName )
 		return AttemptToBuyTeamPowerup(itemName);
 	}
 
-	GiveStuffToPlayer( this, itemName, NULL );
+	//GiveStuffToPlayer( this, itemName, NULL );
+
+	// Uses a if/else chain to prevent the unlikely event of a double buy
+	if(itemNameStr == "weapon_machinegun")
+	{
+		this->inventory.MachinegunPurchased = true;
+	}
+	else if(itemNameStr == "weapon_shotgun")
+	{
+		this->inventory.ShotgunPurchased = true;
+
+//		gameLocal.Printf("value of mgp: %s \n", this->inventory.ShotgunPurchased ? "true" : "false");
+	}
+	else if(itemNameStr == "weapon_hyperblaster")
+	{
+		this->inventory.HyperblasterPurchased = true;
+	}
+	else if(itemNameStr == "weapon_grenadelauncher")
+	{
+		this->inventory.GrenadelauncherPurchased = true;
+	}
+	else if(itemNameStr == "weapon_nailgun")
+	{
+		this->inventory.NailgunPurchased = true;
+	}
+	else if(itemNameStr == "weapon_rocketlauncher")
+	{
+		this->inventory.RocketlauncherPurchased = true;
+	}
+	else if(itemNameStr == "weapon_railgun")
+	{
+		this->inventory.RailgunPurchased = true;
+	}
+	else if(itemNameStr == "weapon_dmg")
+	{
+		this->inventory.DMGPurchased = true;
+	}
+	
+
 	gameLocal.mpGame.RedrawLocalBuyMenu();
 	return true;
 }
