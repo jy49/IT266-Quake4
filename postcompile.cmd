@@ -1,5 +1,5 @@
 @echo off
-set NAME_OF_MOD=master
+set NAME_OF_MOD=DLCMod
 set NAME_OF_MOD_PK4=game000.pk4
 set NAME_OF_MOD_DLL=gamex86.dll
 set PATH_TO_COMPILED_DLL=..\Win32\Release
