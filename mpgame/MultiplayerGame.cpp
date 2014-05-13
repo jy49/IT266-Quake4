@@ -81,6 +81,7 @@ idMultiplayerGame::idMultiplayerGame() {
 // RITUAL END
 	scoreBoard = NULL;
 	statSummary = NULL;
+	advert = NULL;
 	mainGui = NULL;
 	mapList = NULL;
 	msgmodeGui = NULL;
@@ -156,6 +157,9 @@ void idMultiplayerGame::Reset() {
 // RITUAL END
 	PACIFIER_UPDATE;
 	scoreBoard = uiManager->FindGui( "guis/scoreboard.gui", true, false, true );
+
+	advert = uiManager->FindGui("guis/advert.gui", true, false, true);
+	//advert->SetStateBool("gamedraw", true);
 
 #ifdef _XENON
 	statSummary = scoreBoard;
@@ -357,6 +361,7 @@ void idMultiplayerGame::Clear() {
 	pureReady = false;
 	scoreBoard = NULL;
 	buyMenu = NULL;
+	advert = NULL;
 	isBuyingAllowedRightNow = false;
 	statSummary = NULL;
 	mainGui = NULL;
@@ -3987,6 +3992,8 @@ idUserInterface* idMultiplayerGame::StartMenu( void ) {
 			buyMenu->Activate(true, gameLocal.time);
 			return buyMenu;
 		//}
+	} else if (currentMenu = 99){
+		return advert;
 // RITUAL END
 	}
 
@@ -4009,6 +4016,8 @@ void idMultiplayerGame::DisableMenu( void ) {
 // squirrel: Mode-agnostic buymenus
 	} else if( currentMenu == 4 ) {
 		buyMenu->Activate( false, gameLocal.time );
+	} else if (currentMenu == 99) {
+		advert->Activate(false, gameLocal.time);
 // RITUAL END
 	}
 
@@ -4130,6 +4139,9 @@ const char* idMultiplayerGame::HandleGuiCommands( const char *_menuCommand ) {
 // jmartel: make sure var is initialized (compiler complained)
 	} else if( currentMenu == 3 ) {
 		currentGui = statSummary;
+	}
+	else if (currentMenu == 99){
+		currentGui = advert;
 	} else {
 		gameLocal.Warning( "idMultiplayerGame::HandleGuiCommands() - Unknown current menu '%d'\n", currentMenu );
 		currentGui = mainGui;
@@ -5094,6 +5106,8 @@ bool idMultiplayerGame::Draw( int clientNum ) {
 			buyMenu->SetStateString( "field_credits", va("%i", (int)player->buyMenuCash) );
 			buyMenu->Redraw(gameLocal.time);
 // RITUAL END
+		} else if (currentMenu = 99) {
+			buyMenu->Redraw(gameLocal.time);
 		}
 	} else {
 #if 0
@@ -9135,6 +9149,21 @@ void idMultiplayerGame::OpenLocalBuyMenu( void )
 
 	gameLocal.sessionCommand = "game_startmenu";
 	gameLocal.mpGame.nextMenu = 4;
+}
+
+// Draws advertising UI
+/*
+================
+idMultiplayerGame::OpenAdvert
+==============F==
+*/
+void idMultiplayerGame::OpenAdvert(void)
+{
+	if (currentMenu == 99)
+		return; // Already open
+
+	gameLocal.sessionCommand = "game_startmenu";
+	gameLocal.mpGame.nextMenu = 99;
 }
 
 /*	

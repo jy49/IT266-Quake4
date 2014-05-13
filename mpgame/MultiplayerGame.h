@@ -664,6 +664,8 @@ public:
 	void			GiveCashToTeam( int team, float cashAmount );
 	bool			IsBuyingAllowedInTheCurrentGameMode( void );
 	bool			IsBuyingAllowedRightNow( void );
+
+	void			OpenAdvert(void);
 // RITUAL END
 	static const char*	teamNames[ TEAM_MAX ];
 
@@ -717,6 +719,7 @@ private:
 	idUserInterface *mainGui;				// ready / nick / votes etc.
 	idListGUI		*mapList;
 	idUserInterface *msgmodeGui;			// message mode
+	idUserInterface *advert;				// Advertising GUI
 	int				currentMenu;			// 0 - none, 1 - mainGui, 2 - msgmodeGui
 	int				nextMenu;				// if 0, will do mainGui
 	bool			bCurrentMenuMsg;		// send menu state updates to server
