@@ -8380,6 +8380,13 @@ bool idPlayer::AttemptToBuyItem( const char* itemName )
 	/// Check if the player is allowed to buy this item
 	if( !CanBuyItem( itemName ) )
 	{
+		// FIXME: temporary hack to allow buying upgrades
+		// currently allows players to go into debt and buy the same upgrade multiple times
+		// TODO: make multiple upgrade checking a seperate purchaseable
+
+		// Intended operation: Do not allow uers to go into debt
+		// but do not prevent users from wasting money without having additional unlockable to check 
+		// if they already have that item
 //		return false;
 	}
 
@@ -8588,7 +8595,7 @@ void idPlayer::PerformImpulse( int impulse ) {
 		case IMPULSE_107:	AttemptToBuyItem( "weapon_lightninggun" );			break;
 		case IMPULSE_108:	break; // Unused
 		case IMPULSE_109:	AttemptToBuyItem( "weapon_napalmgun" );				break;
-		case IMPULSE_110:	/* AttemptToBuyItem( "weapon_dmg" );*/				break;
+		case IMPULSE_110:	AttemptToBuyItem( "weapon_dmg" );					break;
 		case IMPULSE_111:	break; // Unused
 		case IMPULSE_112:	break; // Unused
 		case IMPULSE_113:	break; // Unused
